@@ -13,6 +13,7 @@ Usage:
         dac.reset()             # all channels → 0 V (0x800)
 """
 
+import time
 import serial
 
 
@@ -21,8 +22,18 @@ class DAC4813Error(Exception):
 
 
 class DAC4813:
-    def __init__(self, port: str, baudrate: int = 115200, timeout: float = 1.0):
+    def __init__(self, port: str, baudrate: int = 115200, timeout: float = 1.0,
+                 reset_delay: float = 2.0):
+        """Open *port* and wait for the Arduino bootloader to finish.
+
+        Opening the serial port toggles DTR, which resets the Arduino.
+        *reset_delay* (default 2 s) is the time to wait before sending any
+        commands.  Pass ``reset_delay=0`` if the Arduino is already running
+        (e.g. the port was kept open) or if DTR reset is disabled on the board.
+        """
         self._ser = serial.Serial(port, baudrate=baudrate, timeout=timeout)
+        if reset_delay > 0:
+            time.sleep(reset_delay)
 
     # ── low-level I/O ────────────────────────────────────────────────────
 

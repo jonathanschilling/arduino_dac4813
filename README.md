@@ -43,6 +43,19 @@ All other `/EN` signals should be held high, in order to only load a specific DA
 Then, the data bits are loaded into the specific DAC channel when both `/WR` and `/LDAC` are programmed low.
 In the idle state, all `/EN` signals as well as `/WR` and `/LDAC` should be held high.
 
+## Building and Flashing the Firmware
+
+The following packages are required: `avr-gcc`, `avr-libc`, `avrdude`.
+
+The firmware source is in `firmware/`. Build and flash with:
+
+```sh
+cd firmware
+make              # compile
+make flash        # flash (default port: /dev/ttyACM0)
+make flash PORT=/dev/ttyUSB0   # override serial port if needed
+```
+
 ## Remote Control
 
 The Arduino code is written in C for use with `avr-gcc`.
