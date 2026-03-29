@@ -1,5 +1,5 @@
 # arduino_dac4813
-Arduino-controlled DAC4813 - 4ch +/-10V analog out
+Arduino-controlled [DAC4813](DAC4813_datasheet.pdf) - 4ch +/-10V analog out
 
 ## Circuit Description
 
