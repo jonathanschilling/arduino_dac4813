@@ -20,7 +20,7 @@ The wiring of the DAC4813 to the Arduino and ATmega328 on there is as follows:
 | PB2     | Digital 10  | D7      |
 | PB3     | Digital 11  | D6      |
 | PB4     | Digital 12  | D5      |
-| PB3     | Digital 13  | D4      |
+| PB5     | Digital 13  | D4      |
 | PC0     | Analog 0    | /WR     |
 | PC1     | Analog 1    | /EN1    |
 | PC2     | Analog 2    | /EN2    |
