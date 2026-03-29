@@ -76,3 +76,33 @@ A brief identifier string can be requested by sending `*IDN?\n`:
 DAC4813 on Arduino Uno Rev. 3
 ```
 
+## Programming via Python
+
+A Python client library is provided in `python/dac4813.py`. It requires `pyserial`:
+
+```sh
+pip install pyserial
+```
+
+### API
+
+```python
+from dac4813 import DAC4813
+
+with DAC4813("/dev/ttyACM0") as dac:
+    print(dac.identify())   # "DAC4813 on Arduino Uno Rev. 3"
+    dac.reset()             # all channels → 0 V (0x800)
+    dac.set(1, 0x800)       # channel 1 → 0 V  (raw 12-bit value)
+    dac.set(2, 0x000)       # channel 2 → -10 V
+    dac.set(3, 0xFFF)       # channel 3 → +10 V − 1 LSB
+```
+
+| Method | Description |
+|--------|-------------|
+| `set(channel, value)` | Load a 12-bit value (`0x000`–`0xFFF`) into channel 1–4. |
+| `reset()` | Reset all channels to `0x800` (0 V). |
+| `identify()` | Return the firmware identification string. |
+| `close()` | Close the serial port (called automatically by the context manager). |
+
+**Note:** opening the serial port toggles DTR, which resets the Arduino. The constructor waits 2 s by default before accepting commands. Pass `reset_delay=0` to skip the wait if the port was already open.
+
